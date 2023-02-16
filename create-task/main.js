@@ -38,23 +38,16 @@ function init() {
     );
 }
 init();
+
 const form = document.getElementById("form");
-const input = document.querySelector(`#input`);
-if (input > 1) {
-  form.innerHTML = "please insert one letter";
-}
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-  console.log("workd");
+  const guesses = document.querySelector(`#lett`).value;
+  console.log(guesses);
+  if (guesses.length <= 1) {
+    console.log("wirks");
+  } else {
+    console.log("insert one");
+  }
 });
-// while (remainingLetters < 0) {
-//   const guess = prompt("enter letter");
-//   for (var j = 0; j < word.length; j++) {
-//     if ((word[j] = guess)) {
-//       answerArray[j] = guess;
-//       remainingLetters--;
-//     }
-//     history.push(guess);
-//   }
-// }
-// console.log(history);
