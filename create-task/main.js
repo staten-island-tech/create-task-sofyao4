@@ -17,37 +17,44 @@ const words = [
   "xylophone",
   "zodiac",
 ];
-function init() {
-  const history = [];
-  const chooseWord = words[Math.floor(Math.random() * words.length)];
-  const word = chooseWord.split("");
-  console.log(chooseWord);
-  console.log(word);
-  const answerArray = [];
-  for (var i = 0; i < word.length; i++) {
-    answerArray[i] = "_";
-  }
-  console.log(answerArray);
-  let remainingLetters = word.length;
-  console.log(remainingLetters);
-  document
-    .querySelector(`.gameSpace`)
-    .insertAdjacentHTML(
-      "afterend",
-      `<div> word: ${answerArray.join(" ")}</div>`
-    );
+const history = [];
+const chooseWord = words[Math.floor(Math.random() * words.length)];
+const word = chooseWord.split("");
+console.log(chooseWord);
+console.log(word);
+const answerArray = [];
+for (var i = 0; i < word.length; i++) {
+  word[i] = "_";
 }
-init();
+console.log(word);
+
+let remainingLetters = word.length;
+console.log(remainingLetters);
+document
+  .querySelector(`.gameSpace`)
+  .insertAdjacentHTML("afterend", `<div> word: ${word.join(" ")} </div>`);
 
 const form = document.getElementById("form");
 
 form.addEventListener("submit", function (e) {
+  let guesses = document.querySelector(`#lett`).value;
+
   e.preventDefault();
-  const guesses = document.querySelector(`#lett`).value;
   console.log(guesses);
+  // while (guesses.length <= 1) {
+  //   if (word.includes(guesses)) {
+  //     console.log("includes");
+  //   } else {
+  //     console.log("does not include");
+  //   }
+  //   history.push(guesses);
+  //   guesses += 1;
+  //   console.log(guesses);
+  //   console.log(history);
+  // }
   if (guesses.length <= 1) {
-    console.log("wirks");
-  } else {
-    console.log("insert one");
+    if (word.includes(guesses)) {
+      const letter = console.log();
+    }
   }
 });
