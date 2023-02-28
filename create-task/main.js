@@ -1,5 +1,5 @@
 import "./style.css";
-const words = [
+const wordbank = [
   "hangman",
   "javascript",
   "absurd",
@@ -18,7 +18,7 @@ const words = [
   "zodiac",
 ];
 const history = [];
-const chooseWord = words[Math.floor(Math.random() * words.length)];
+const chooseWord = wordbank[Math.floor(Math.random() * wordbank.length)];
 const word = chooseWord.split("");
 console.log(chooseWord);
 console.log(word);
@@ -32,22 +32,16 @@ document
 const form = document.getElementById("form");
 
 form.addEventListener("submit", function (e) {
-  let guesses = document.querySelector(`#lett`).value;
   e.preventDefault();
+  let guesses = document.querySelector(`#lett`).value;
   console.log(guesses);
-  if (guesses.length <= 1) {
-    if (word.includes(guesses)) {
-      const letter = console.log();
-    }
+  let idx = word.indexOf(guesses);
+  const indices = [];
+  while (idx !== -1) {
+    indices.push(idx);
+    console.log(idx);
+    idx = word.indexOf(guesses, idx + 1);
   }
+  console.log(indices);
+  history.push(guesses);
 });
-const indices = [];
-const array = chooseWord.split("");
-const element = document.querySelector(`#lett`).value;
-let idx = array.indexOf(element);
-while (idx !== -1) {
-  indices.push(idx);
-  idx = array.indexOf(element, idx + 1);
-}
-console.log(indices);
-console.log(array);
