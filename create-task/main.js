@@ -17,31 +17,63 @@ const wordbank = [
   "xylophone",
   "zodiac",
 ];
-const history = [];
-const chooseWord = wordbank[Math.floor(Math.random() * wordbank.length)];
-const word = chooseWord.split("");
-console.log(chooseWord);
-console.log(word);
+function init() {
+  let lives = 10;
+  let history = [];
 
-let remainingLetters = word.length;
+  document.querySelector(`.status`).innerHTML = "";
 
-document
-  .querySelector(`.gameSpace`)
-  .insertAdjacentHTML("afterend", `<div> word: ${word.join(" ")} </div>`);
-
-const form = document.getElementById("form");
-
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-  let guesses = document.querySelector(`#lett`).value;
-  console.log(guesses);
-  let idx = word.indexOf(guesses);
-  const indices = [];
-  while (idx !== -1) {
-    indices.push(idx);
-    console.log(idx);
-    idx = word.indexOf(guesses, idx + 1);
+  const chooseWord = wordbank[Math.floor(Math.random() * wordbank.length)];
+  const word = chooseWord.split("");
+  console.log(chooseWord);
+  let newArr = chooseWord.split("");
+  for (var i = 0; i < word.length; i++) {
+    newArr[i] = "_";
   }
-  console.log(indices);
-  history.push(guesses);
+
+  document.querySelector(`.gameSpace`).innerHTML = `<div> word: ${newArr.join(
+    " "
+  )}</div>`;
+  let remains = newArr.length;
+
+  document.getElementById("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let guesses = document.querySelector(`#lett`).value.toLowerCase();
+    if (word.includes(guesses)) {
+      let idx = word.indexOf(guesses);
+      const indices = [];
+      while (idx !== -1) {
+        indices.push(idx);
+        newArr[idx] = guesses;
+        idx = word.indexOf(guesses, idx + 1);
+        remains--;
+      }
+    } else {
+      history.push(guesses);
+      lives--;
+      console.log(lives);
+      if (lives < 1) {
+        document.querySelector(`.status`).innerHTML = "YOU LOST";
+        lives = 0;
+      }
+    }
+    if (remains === 0) {
+      document.querySelector(`.status`).innerHTML = "YOU WON";
+    }
+
+    document.querySelector(`.gameSpace`).innerHTML = `<div> word: ${newArr.join(
+      " "
+    )}</div>`;
+    document.querySelector(`#lives`).innerHTML = `Lives: ${lives}`;
+    document.querySelector(
+      `#history`
+    ).innerHTML = `Guessed letters: ${history.join(" ")} `;
+    document.querySelector(`#lett`).value = "";
+  });
+}
+init();
+
+document.querySelector(`#reset`).addEventListener("click", function () {
+  location.reload();
 });

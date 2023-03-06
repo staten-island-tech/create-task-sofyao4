@@ -8,12 +8,20 @@
   </head>
   <body>
     <div class="content">
-      <h1 id="header"> The Hangman Game
+      <h1 id="header"> Word Guessing Game
       </h1>
+      <h2 id="sub-header">Enter letters in the space below to guess the word</h2>
+      <div class="settings">
+        <p id="lives">Lives: 10</p>
+        <p id="history">Guessed Letters: </p>
+      </div>
       <form action="submit" id="form">
         <input title="input"  type="search" class="inputLetter" id="lett">
         <button title= "submit" id="ok" type="submit">OK</button></form>
+        
       <div class="gameSpace"></div>
+      <div class="status"></div>
+      <button title="reset" id="reset">Reset</button>
       </div>
     <div id="app"></div>
     <script type="module" src="/main.js"></script>
