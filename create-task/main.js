@@ -41,18 +41,17 @@ function init() {
 
     let guesses = document.querySelector(`#lett`).value.toLowerCase();
     if (word.includes(guesses)) {
-      let idx = word.indexOf(guesses);
-      const indices = [];
-      while (idx !== -1) {
-        indices.push(idx);
-        newArr[idx] = guesses;
-        idx = word.indexOf(guesses, idx + 1);
+      let index = word.indexOf(guesses);
+      const indexes = [];
+      while (index !== -1) {
+        indexes.push(index);
+        newArr[index] = guesses;
+        index = word.indexOf(guesses, idx + 1);
         remains--;
       }
     } else {
       history.push(guesses);
       lives--;
-      console.log(lives);
       if (lives < 1) {
         document.querySelector(`.status`).innerHTML = "YOU LOST";
         lives = 0;
