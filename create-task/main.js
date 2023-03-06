@@ -20,43 +20,43 @@ const wordbank = [
 function init() {
   let lives = 10;
   let history = [];
-
-  document.querySelector(`.status`).innerHTML = "";
-
   const chooseWord = wordbank[Math.floor(Math.random() * wordbank.length)];
   const word = chooseWord.split("");
-  console.log(chooseWord);
   let newArr = chooseWord.split("");
+  let remains = newArr.length;
+
   for (var i = 0; i < word.length; i++) {
     newArr[i] = "_";
   }
 
+  document.querySelector(`.status`).innerHTML = "";
   document.querySelector(`.gameSpace`).innerHTML = `<div> word: ${newArr.join(
     " "
   )}</div>`;
-  let remains = newArr.length;
 
   document.getElementById("form").addEventListener("submit", function (e) {
     e.preventDefault();
-
     let guesses = document.querySelector(`#lett`).value.toLowerCase();
-    if (word.includes(guesses)) {
-      let index = word.indexOf(guesses);
-      const indexes = [];
-      while (index !== -1) {
-        indexes.push(index);
-        newArr[index] = guesses;
-        index = word.indexOf(guesses, idx + 1);
-        remains--;
-      }
-    } else {
-      history.push(guesses);
-      lives--;
-      if (lives < 1) {
-        document.querySelector(`.status`).innerHTML = "YOU LOST";
-        lives = 0;
+    function main() {
+      if (word.includes(guesses)) {
+        let index = word.indexOf(guesses);
+        const indexes = [];
+        while (index !== -1) {
+          indexes.push(index);
+          newArr[index] = guesses;
+          index = word.indexOf(guesses, index + 1);
+          remains--;
+        }
+      } else {
+        history.push(guesses);
+        lives--;
+        if (lives < 1) {
+          document.querySelector(`.status`).innerHTML = "YOU LOST";
+          lives = 0;
+        }
       }
     }
+    main();
     if (remains === 0) {
       document.querySelector(`.status`).innerHTML = "YOU WON";
     }
